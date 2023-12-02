@@ -9,7 +9,6 @@ pub fn solve() {
 }
 
 fn sub_solution1() {
-    println!("Sub solution 1:");
     let data = reader::read_file_line_by_line("src/inputs/day1/1.txt").unwrap();
     let mut sum = 0;
     for line in data.lines() {
@@ -28,11 +27,10 @@ fn sub_solution1() {
         sum += number.parse::<i32>().unwrap();
         // println!("NUmbers: {:?}, NUmber: {:?}", digits, number);
     }
-    println!("Sum: {:?}", sum);
+    println!("\tSub solution 1: {:?}", sum);
 }
 
 fn sub_solution2() {
-    println!("Sub solution 2:");
     let data = reader::read_file_line_by_line("src/inputs/day1/2.txt").unwrap();
     let all_digits = [
         "1", "2", "3", "4", "5", "6", "7", "8", "9", "one", "two", "three", "four", "five", "six",
@@ -68,5 +66,5 @@ fn sub_solution2() {
 
         sum += first * 10 + last;
     }
-    println!("Sum: {:?}", sum);
+    println!("\tSub solution 2: {:?}", sum);
 }

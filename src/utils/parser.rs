@@ -13,11 +13,20 @@ pub fn parse_digit_to_number(spelled_digit: &str) -> u32 {
     }
 }
 
-pub fn parse_color_to_max(spelled_digit: &str) -> u32 {
+pub fn parse_color_to_max(spelled_digit: &str) -> i32 {
     match spelled_digit {
         "red" => 12,
         "green" => 13,
         "blue" => 14,
-        n => n.parse::<u32>().unwrap(),
+        n => n.parse::<i32>().unwrap(),
+    }
+}
+
+pub fn parse_color_to_index(spelled_digit: &str) -> usize {
+    match spelled_digit {
+        "red" => 0,
+        "green" => 1,
+        "blue" => 2,
+        n => n.parse::<usize>().unwrap(),
     }
 }
