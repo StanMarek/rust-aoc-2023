@@ -1,5 +1,3 @@
-use std::io::BufRead;
-
 use crate::utils::{math, parser, reader};
 
 pub fn solve() {
@@ -10,12 +8,11 @@ pub fn solve() {
 }
 
 fn sub_solution_one() -> () {
-    let data = reader::read_file_line_by_line("src/inputs/day2/1.txt").unwrap();
+    let data = reader::read_file_line_by_line("src/inputs/day2/1.txt");
 
     let mut impossible_games_ids = Vec::new();
 
-    for l in data.lines() {
-        let line = l.unwrap();
+    for line in data {
         let game = line.split(": ").collect::<Vec<&str>>();
         let game_id = game[0].split("Game ").collect::<Vec<&str>>()[1]
             .parse::<i32>()
@@ -61,12 +58,11 @@ fn sub_solution_one() -> () {
 }
 
 fn sub_solution_two() -> () {
-    let data = reader::read_file_line_by_line("src/inputs/day2/2.txt").unwrap();
+    let data = reader::read_file_line_by_line("src/inputs/day2/2.txt");
 
     let mut multiplied_sum = 0;
 
-    for l in data.lines() {
-        let line = l.unwrap();
+    for line in data {
         let game = line.split(": ").collect::<Vec<&str>>();
         let game_records_str = game[1];
         let game_records = game_records_str.split("; ").collect::<Vec<&str>>();

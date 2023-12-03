@@ -1,5 +1,3 @@
-use std::io::BufRead;
-
 use crate::utils::*;
 
 pub fn solve() {
@@ -9,12 +7,12 @@ pub fn solve() {
 }
 
 fn sub_solution1() {
-    let data = reader::read_file_line_by_line("src/inputs/day1/1.txt").unwrap();
+    let data = reader::read_file_line_by_line("src/inputs/day1/1.txt");
     let mut sum = 0;
-    for line in data.lines() {
+    for line in data {
         let mut digits: Vec<char> = Vec::new();
 
-        for character in line.unwrap().chars() {
+        for character in line.chars() {
             if character.is_numeric() {
                 digits.push(character);
             }
@@ -31,15 +29,15 @@ fn sub_solution1() {
 }
 
 fn sub_solution2() {
-    let data = reader::read_file_line_by_line("src/inputs/day1/2.txt").unwrap();
+    let data = reader::read_file_line_by_line("src/inputs/day1/2.txt");
     let all_digits = [
         "1", "2", "3", "4", "5", "6", "7", "8", "9", "one", "two", "three", "four", "five", "six",
         "seven", "eight", "nine",
     ];
 
     let mut sum = 0;
-    for l in data.lines() {
-        let line = l.unwrap();
+    for line in data {
+        // let line = l.unwrap();
         let mut pos_first = None;
         let mut digit_first = None;
         let mut pos_last = None;
