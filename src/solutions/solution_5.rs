@@ -16,6 +16,7 @@ struct Node {
     range: i64,
 }
 
+#[derive(Clone, Copy)]
 struct SeedMapping {
     seeds: Vec<i64>,
     seed_to_soil: Vec<Node>,
@@ -199,7 +200,59 @@ fn get_value(nodes: Vec<Node>, key: i64) -> i64 {
     return next_key;
 }
 
+struct SeedMappingAdvanced {
+    seeds: Vec<Node>,
+    seed_to_soil: Vec<Node>,
+    soil_to_fertilizer: Vec<Node>,
+    fertilizer_to_water: Vec<Node>,
+    water_to_light: Vec<Node>,
+    light_to_temp: Vec<Node>,
+    temp_to_hum: Vec<Node>,
+    hum_to_location: Vec<Node>,
+}
+
+impl From<SeedMapping> for SeedMappingAdvanced {
+    fn from(value: SeedMapping) -> Self {
+        for i in (0..value.seeds.len()).step_by(2) {
+            dbg!(i);
+        }
+
+        SeedMappingAdvanced {
+            seeds: Vec::new(),
+            seed_to_soil: value.seed_to_soil,
+            soil_to_fertilizer: value.soil_to_fertilizer,
+            fertilizer_to_water: value.fertilizer_to_water,
+            water_to_light: value.water_to_light,
+            light_to_temp: value.light_to_temp,
+            temp_to_hum: value.temp_to_hum,
+            hum_to_location: value.hum_to_location,
+        }
+    }
+}
+
 fn sub_solution_2() {
-    let output = 0;
+    let input = include_str!("../inputs/day5/input.txt");
+    let mut output = i64::MAX;
+
+    let seed_mapping = input.parse::<SeedMapping>().unwrap();
+    let seed_mapping_advanced = SeedMappingAdvanced::from(seed_mapping.clone());
+    let _seeds = seed_mapping.seeds;
+    // let mut seeds = Vec::new();
+
+    // for
+
+    for seed in _seeds.iter() {
+        let soil_key = get_value(seed_mapping.seed_to_soil.clone(), *seed);
+        let fertilizer_key = get_value(seed_mapping.soil_to_fertilizer.clone(), soil_key);
+        let water_key = get_value(seed_mapping.fertilizer_to_water.clone(), fertilizer_key);
+        let light_key = get_value(seed_mapping.water_to_light.clone(), water_key);
+        let temp_key = get_value(seed_mapping.light_to_temp.clone(), light_key);
+        let hum_key = get_value(seed_mapping.temp_to_hum.clone(), temp_key);
+        let location = get_value(seed_mapping.hum_to_location.clone(), hum_key);
+
+        if location < output {
+            output = location;
+        }
+    }
     println!("\tSub solution 2: {:?}", output);
 }
