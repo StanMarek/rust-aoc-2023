@@ -1,7 +1,7 @@
 use std::{collections::HashSet, vec};
 
 pub fn solve() {
-    println!("Day 3");
+    println!("Day 4");
 
     sub_solution_1();
     sub_solution_2();

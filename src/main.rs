@@ -7,4 +7,5 @@ fn main() {
     solution_2::solve();
     solution_3::solve();
     solution_4::solve();
+    solution_5::solve();
 }
