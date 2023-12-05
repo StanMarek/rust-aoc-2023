@@ -16,7 +16,7 @@ struct Node {
     range: i64,
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone)]
 struct SeedMapping {
     seeds: Vec<i64>,
     seed_to_soil: Vec<Node>,
@@ -213,12 +213,23 @@ struct SeedMappingAdvanced {
 
 impl From<SeedMapping> for SeedMappingAdvanced {
     fn from(value: SeedMapping) -> Self {
+        let mut seeds = Vec::new();
+
         for i in (0..value.seeds.len()).step_by(2) {
-            dbg!(i);
+            let source_start = value.seeds.get(i).unwrap();
+            let range = value.seeds.get(i + 1).unwrap();
+
+            seeds.push(Node {
+                source_start: *source_start,
+                source_end: source_start + range - 1,
+                destination_start: 0,
+                destination_end: 0,
+                range: *range,
+            })
         }
 
         SeedMappingAdvanced {
-            seeds: Vec::new(),
+            seeds,
             seed_to_soil: value.seed_to_soil,
             soil_to_fertilizer: value.soil_to_fertilizer,
             fertilizer_to_water: value.fertilizer_to_water,
@@ -239,19 +250,26 @@ fn sub_solution_2() {
     let _seeds = seed_mapping.seeds;
     // let mut seeds = Vec::new();
 
+    // dbg!(seed_mapping_advanced.seeds.clone());
     // for
 
-    for seed in _seeds.iter() {
-        let soil_key = get_value(seed_mapping.seed_to_soil.clone(), *seed);
-        let fertilizer_key = get_value(seed_mapping.soil_to_fertilizer.clone(), soil_key);
-        let water_key = get_value(seed_mapping.fertilizer_to_water.clone(), fertilizer_key);
-        let light_key = get_value(seed_mapping.water_to_light.clone(), water_key);
-        let temp_key = get_value(seed_mapping.light_to_temp.clone(), light_key);
-        let hum_key = get_value(seed_mapping.temp_to_hum.clone(), temp_key);
-        let location = get_value(seed_mapping.hum_to_location.clone(), hum_key);
+    for _seed in seed_mapping_advanced.seeds.iter() {
+        let source_start = _seed.source_start;
+        let source_end = _seed.source_end;
+        // let range = _seed.range;
 
-        if location < output {
-            output = location;
+        for seed in source_start..source_end {
+            let soil_key = get_value(seed_mapping.seed_to_soil.clone(), seed);
+            let fertilizer_key = get_value(seed_mapping.soil_to_fertilizer.clone(), soil_key);
+            let water_key = get_value(seed_mapping.fertilizer_to_water.clone(), fertilizer_key);
+            let light_key = get_value(seed_mapping.water_to_light.clone(), water_key);
+            let temp_key = get_value(seed_mapping.light_to_temp.clone(), light_key);
+            let hum_key = get_value(seed_mapping.temp_to_hum.clone(), temp_key);
+            let location = get_value(seed_mapping.hum_to_location.clone(), hum_key);
+
+            if location < output {
+                output = location;
+            }
         }
     }
     println!("\tSub solution 2: {:?}", output);
