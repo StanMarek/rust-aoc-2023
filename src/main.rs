@@ -8,4 +8,5 @@ fn main() {
     solution_3::solve();
     solution_4::solve();
     solution_5::solve();
+    solution_6::solve();
 }

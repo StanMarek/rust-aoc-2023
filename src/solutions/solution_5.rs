@@ -4,7 +4,7 @@ pub fn solve() {
     println!("Day 5:");
 
     sub_solution_1();
-    sub_solution_2();
+    // sub_solution_2();
 }
 
 #[derive(Debug, Clone, Copy)]
