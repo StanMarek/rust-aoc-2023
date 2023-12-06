@@ -1,5 +1,3 @@
-use std::str::SplitWhitespace;
-
 pub fn solve() {
     println!("Day 6");
 

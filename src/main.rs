@@ -1,4 +1,5 @@
 mod solutions;
+mod types;
 mod utils;
 use solutions::*;
 
