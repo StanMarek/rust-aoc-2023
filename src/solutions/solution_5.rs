@@ -1,3 +1,5 @@
+use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
+
 use crate::types::{
     node::Node,
     seed_mapping::{SeedMapping, SeedMappingAdvanced},
@@ -39,13 +41,14 @@ fn sub_solution_1() {
 #[warn(dead_code)]
 fn sub_solution_2() {
     let input = include_str!("../inputs/day5/input.txt");
-    let mut output = i64::MAX;
+    // let mut output = i64::MAX;
+    let output = std::sync::Mutex::new(std::i64::MAX);
 
     let seed_mapping = input.parse::<SeedMapping>().unwrap();
     let seed_mapping_advanced = SeedMappingAdvanced::from(seed_mapping.clone());
     let _seeds = seed_mapping.seeds;
 
-    for _seed in seed_mapping_advanced.seeds.iter() {
+    seed_mapping_advanced.seeds.par_iter().for_each(|_seed| {
         let source_start = _seed.source_start;
         let source_end = _seed.source_end;
 
@@ -62,11 +65,13 @@ fn sub_solution_2() {
             let hum_key = get_value(seed_mapping_advanced.temp_to_hum.clone(), temp_key);
             let location = get_value(seed_mapping_advanced.hum_to_location.clone(), hum_key);
 
-            if location < output {
-                output = location;
+            let mut output = output.lock().unwrap();
+            if location < *output {
+                *output = location;
             }
         }
-    }
+    });
+
     println!("\tSub solution 2: {:?}", output);
 }
 
