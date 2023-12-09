@@ -39,7 +39,7 @@ fn sub_solution_1() {
 /// This should be optimized
 /// e.g. use parallel
 #[warn(dead_code)]
-fn sub_solution_2() {
+fn _sub_solution_2() {
     let input = include_str!("../inputs/day5/input.txt");
     // let mut output = i64::MAX;
     let output = std::sync::Mutex::new(std::i64::MAX);
