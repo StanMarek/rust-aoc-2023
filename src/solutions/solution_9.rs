@@ -27,7 +27,7 @@ fn sub_solution_1() {
     println!("\tSub solution 1: {output}");
 }
 
-fn solve_series(main_series: Vec<i64>, accumulator: &mut Vec<Vec<i64>>) -> () {
+fn solve_series(main_series: Vec<i64>, accumulator: &mut Vec<Vec<i64>>) {
     if !main_series.iter().all(|x| *x == 0) {
         let mut diffs = Vec::new();
         for i in 0..main_series.clone().len() - 1 {

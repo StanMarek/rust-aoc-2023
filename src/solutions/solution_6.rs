@@ -17,7 +17,7 @@ fn parse_input() -> ((Vec<u32>, Vec<u32>), (u64, u64)) {
         match i {
             0 => {
                 let split = line
-                    .split(":")
+                    .split(':')
                     .collect::<Vec<&str>>()
                     .get(1)
                     .unwrap()
@@ -31,7 +31,7 @@ fn parse_input() -> ((Vec<u32>, Vec<u32>), (u64, u64)) {
             }
             1 => {
                 let split = line
-                    .split(":")
+                    .split(':')
                     .collect::<Vec<&str>>()
                     .get(1)
                     .unwrap()

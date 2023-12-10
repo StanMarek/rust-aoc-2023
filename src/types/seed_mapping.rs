@@ -76,11 +76,10 @@ impl FromStr for SeedMapping {
 
         for line in s.lines() {
             if line.starts_with("seeds:") {
-                let (_, read_seeds) = line.split_once(":").unwrap();
+                let (_, read_seeds) = line.split_once(':').unwrap();
                 seeds = read_seeds
                     .split_whitespace()
                     .filter_map(parse_number)
-                    .into_iter()
                     .collect::<Vec<i64>>();
             }
 
@@ -95,64 +94,64 @@ impl FromStr for SeedMapping {
                 _ => (),
             }
 
-            if condition >= 1 && condition <= 7 && !line.is_empty() && !line.contains("map:") {
+            if (1..=7).contains(&condition) && !line.is_empty() && !line.contains("map:") {
                 let line_numbers = line
                     .split_whitespace()
                     .filter_map(parse_number)
                     .collect::<Vec<i64>>();
-                let destination_start = *line_numbers.get(0).unwrap();
+                let destination_start = *line_numbers.first().unwrap();
                 let source_start = *line_numbers.get(1).unwrap();
                 let range = *line_numbers.get(2).unwrap();
 
                 match condition {
                     1 => seed_to_soil.push(Node {
-                        source_start: source_start,
+                        source_start,
                         source_end: source_start + range - 1,
-                        destination_start: destination_start,
+                        destination_start,
                         destination_end: destination_start + range - 1,
-                        range: range,
+                        range,
                     }),
                     2 => soil_to_fertilizer.push(Node {
-                        source_start: source_start,
+                        source_start,
                         source_end: source_start + range - 1,
-                        destination_start: destination_start,
+                        destination_start,
                         destination_end: destination_start + range - 1,
-                        range: range,
+                        range,
                     }),
                     3 => fertilizer_to_water.push(Node {
-                        source_start: source_start,
+                        source_start,
                         source_end: source_start + range - 1,
-                        destination_start: destination_start,
+                        destination_start,
                         destination_end: destination_start + range - 1,
-                        range: range,
+                        range,
                     }),
                     4 => water_to_light.push(Node {
-                        source_start: source_start,
+                        source_start,
                         source_end: source_start + range - 1,
-                        destination_start: destination_start,
+                        destination_start,
                         destination_end: destination_start + range - 1,
-                        range: range,
+                        range,
                     }),
                     5 => light_to_temp.push(Node {
-                        source_start: source_start,
+                        source_start,
                         source_end: source_start + range - 1,
-                        destination_start: destination_start,
+                        destination_start,
                         destination_end: destination_start + range - 1,
-                        range: range,
+                        range,
                     }),
                     6 => temp_to_hum.push(Node {
-                        source_start: source_start,
+                        source_start,
                         source_end: source_start + range - 1,
-                        destination_start: destination_start,
+                        destination_start,
                         destination_end: destination_start + range - 1,
-                        range: range,
+                        range,
                     }),
                     7 => hum_to_location.push(Node {
-                        source_start: source_start,
+                        source_start,
                         source_end: source_start + range - 1,
-                        destination_start: destination_start,
+                        destination_start,
                         destination_end: destination_start + range - 1,
-                        range: range,
+                        range,
                     }),
                     _ => (),
                 };

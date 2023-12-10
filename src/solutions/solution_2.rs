@@ -7,7 +7,7 @@ pub fn solve() {
     sub_solution_two();
 }
 
-fn sub_solution_one() -> () {
+fn sub_solution_one() {
     let data = reader::read_file_line_by_line("src/inputs/day2/1.txt");
 
     let mut impossible_games_ids = Vec::new();
@@ -26,7 +26,7 @@ fn sub_solution_one() -> () {
             if game_record.contains(", ") {
                 let cubes = game_record.split(", ").collect::<Vec<&str>>();
                 for round_entry in cubes {
-                    let number_color = round_entry.split(" ").collect::<Vec<&str>>();
+                    let number_color = round_entry.split_whitespace().collect::<Vec<&str>>();
                     let number = number_color[0].parse::<i32>().unwrap();
                     let color = number_color[1];
 
@@ -36,7 +36,7 @@ fn sub_solution_one() -> () {
                     }
                 }
             } else {
-                let number_color = game_record.split(" ").collect::<Vec<&str>>();
+                let number_color = game_record.split_whitespace().collect::<Vec<&str>>();
                 let number = number_color[0].parse::<i32>().unwrap();
                 let color = number_color[1];
 
@@ -57,7 +57,7 @@ fn sub_solution_one() -> () {
     println!("\tSub solution 1: {:?}", sum);
 }
 
-fn sub_solution_two() -> () {
+fn sub_solution_two() {
     let data = reader::read_file_line_by_line("src/inputs/day2/2.txt");
 
     let mut multiplied_sum = 0;
@@ -73,7 +73,7 @@ fn sub_solution_two() -> () {
             if game_record.contains(", ") {
                 let cubes = game_record.split(", ").collect::<Vec<&str>>();
                 for round_entry in cubes {
-                    let number_color = round_entry.split(" ").collect::<Vec<&str>>();
+                    let number_color = round_entry.split_whitespace().collect::<Vec<&str>>();
                     let number = number_color[0].parse::<i32>().unwrap();
                     let color = number_color[1];
 
@@ -84,7 +84,7 @@ fn sub_solution_two() -> () {
                     }
                 }
             } else {
-                let number_color = game_record.split(" ").collect::<Vec<&str>>();
+                let number_color = game_record.split_whitespace().collect::<Vec<&str>>();
                 let number = number_color[0].parse::<i32>().unwrap();
                 let color = number_color[1];
 

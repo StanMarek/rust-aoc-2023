@@ -14,12 +14,11 @@ trait Parse {
 impl Parse for String {
     fn parse(&self) -> Vec<(&str, usize)> {
         self.lines()
-            .into_iter()
             .map(|line| {
                 let split = line.split_whitespace().take(2).collect::<Vec<&str>>();
-                let hand_cards = *split.get(0).unwrap();
+                let hand_cards = *split.first().unwrap();
                 let points = split.get(1).unwrap().parse::<usize>().unwrap();
-                return (hand_cards, points);
+                (hand_cards, points)
             })
             .collect::<Vec<(&str, usize)>>()
     }
@@ -48,15 +47,15 @@ fn classify(cards: &str) -> usize {
     if counts.contains(&2) {
         return 1;
     };
-    return 0;
+    0
 }
 
 fn replacement(cards: &str) -> Vec<String> {
-    if cards == "" {
+    if cards.is_empty() {
         return vec!["".to_string()];
     }
 
-    let first_chars = if cards.chars().next() == Some('J') {
+    let first_chars = if cards.starts_with('J') {
         "23456789TQKA".chars().collect::<Vec<_>>()
     } else {
         vec![cards.chars().next().unwrap()]
@@ -83,7 +82,7 @@ fn strength(
         .map(|card| *map.get(&card).unwrap_or(&card))
         .collect::<Vec<char>>();
 
-    return (func(cards), cards_char_vec);
+    (func(cards), cards_char_vec)
 }
 
 fn sub_solution_1() {
@@ -92,7 +91,7 @@ fn sub_solution_1() {
 
     let map = HashMap::from([('T', 'A'), ('J', 'B'), ('Q', 'C'), ('K', 'D'), ('A', 'E')]);
 
-    input.sort_by_key(|tuple| strength(&tuple.0, map.clone(), &classify));
+    input.sort_by_key(|tuple| strength(tuple.0, map.clone(), &classify));
 
     let mut output = 0;
 
@@ -113,12 +112,12 @@ fn sub_solution_2() {
     let score = |hand_cards: &str| {
         replacement(hand_cards)
             .iter()
-            .map(|card| classify(&card))
+            .map(|card| classify(card))
             .max()
             .unwrap()
     };
 
-    tuples.sort_by_key(|tuple| strength(&tuple.0, map.clone(), &score));
+    tuples.sort_by_key(|tuple| strength(tuple.0, map.clone(), &score));
 
     let mut output = 0;
     for ((_, (_, points)), multiplier) in tuples.into_iter().enumerate().zip(1..) {

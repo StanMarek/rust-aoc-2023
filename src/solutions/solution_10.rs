@@ -31,10 +31,10 @@ fn init_grid() -> (Vec<Vec<char>>, (i32, i32)) {
 
     grid[start.1 as usize][start.0 as usize] = 'F';
 
-    return (grid, start);
+    (grid, start)
 }
 
-fn sub_solution_1(grid: &Vec<Vec<char>>, start: (i32, i32)) -> HashMap<(i32, i32), usize> {
+fn sub_solution_1(grid: &[Vec<char>], start: (i32, i32)) -> HashMap<(i32, i32), usize> {
     let pipe_map: HashMap<char, [(i32, i32); 2]> = HashMap::from([
         ('|', [(0, 1), (0, -1)]),
         ('-', [(1, 0), (-1, 0)]),
@@ -57,8 +57,8 @@ fn sub_solution_1(grid: &Vec<Vec<char>>, start: (i32, i32)) -> HashMap<(i32, i32
         let pipe_map_value = pipe_map.get(&c).unwrap();
 
         for (dx, dy) in pipe_map_value {
-            let nx = x as i32 + dx;
-            let ny = y as i32 + dy;
+            let nx = x + dx;
+            let ny = y + dy;
 
             if !distance_map.contains_key(&(nx, ny)) {
                 pipe = (nx, ny);
@@ -67,18 +67,18 @@ fn sub_solution_1(grid: &Vec<Vec<char>>, start: (i32, i32)) -> HashMap<(i32, i32
         }
     }
 
-    dist = dist / 2;
+    dist /= 2;
 
     println!("\tSub solution 1: {dist}");
 
-    return distance_map;
+    distance_map
 }
 
-fn sub_solution_2(grid: &Vec<Vec<char>>, distance_map: &HashMap<(i32, i32), usize>) {
+fn sub_solution_2(grid: &[Vec<char>], distance_map: &HashMap<(i32, i32), usize>) {
     let mut count = 0;
-    for (i, row) in grid.into_iter().enumerate() {
+    for (i, row) in grid.iter().enumerate() {
         let mut parity = 0;
-        for (j, char) in row.into_iter().enumerate() {
+        for (j, char) in row.iter().enumerate() {
             if !distance_map.contains_key(&(j as i32, i as i32)) {
                 if parity % 2 == 1 {
                     count += 1;
@@ -86,7 +86,7 @@ fn sub_solution_2(grid: &Vec<Vec<char>>, distance_map: &HashMap<(i32, i32), usiz
                 continue;
             }
 
-            if ['|', 'L', 'J'].contains(&char) {
+            if ['|', 'L', 'J'].contains(char) {
                 parity += 1;
             }
         }

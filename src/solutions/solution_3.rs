@@ -9,7 +9,9 @@ pub fn solve() {
     sub_solution_2();
 }
 
-fn handle_input() -> (Vec<u32>, HashMap<(usize, usize), Vec<u32>>) {
+type Input = (Vec<u32>, HashMap<(usize, usize), Vec<u32>>);
+
+fn handle_input() -> Input {
     let lines = reader::read_file_line_by_line("src/inputs/day3/1.txt");
 
     let input = lines
@@ -42,7 +44,7 @@ fn handle_input() -> (Vec<u32>, HashMap<(usize, usize), Vec<u32>>) {
             let start_col = if col1 > 0 { col1 - 1 } else { 0 };
             let end_col = (col2 + 1).min(line.len());
 
-            'outer: for i in start_row..end_row {
+            'outer: for (i, _) in input.iter().enumerate().take(end_row).skip(start_row) {
                 for j in start_col..end_col {
                     if !input[i][j].is_numeric() && input[i][j] != '.' {
                         if input[i][j] == '*' {
@@ -62,17 +64,17 @@ fn handle_input() -> (Vec<u32>, HashMap<(usize, usize), Vec<u32>>) {
         }
     }
 
-    return (part_numbers, gears);
+    (part_numbers, gears)
 }
 
-fn sub_solution_1() -> () {
+fn sub_solution_1() {
     let (part_numbers, _) = handle_input();
     let output: u32 = part_numbers.iter().sum();
 
     println!("\tSub solution 1: {:?}", output);
 }
 
-fn sub_solution_2() -> () {
+fn sub_solution_2() {
     let (_, gears) = handle_input();
 
     let output: u32 = gears

@@ -11,8 +11,8 @@ fn sub_solution_1() {
     let input = include_str!("../inputs/day4/input.txt");
     let mut sum = 0;
     for line in input.lines() {
-        let (_, cards) = line.split_once(":").unwrap();
-        let (left, right) = cards.split_once("|").unwrap();
+        let (_, cards) = line.split_once(':').unwrap();
+        let (left, right) = cards.split_once('|').unwrap();
 
         let parse_number = |s| match s {
             " " | "|" => None,
@@ -45,8 +45,8 @@ fn sub_solution_2() {
 
     let mut cards_tuple = Vec::new();
     for line in input.lines() {
-        let (_, cards) = line.split_once(":").unwrap();
-        let (left, right) = cards.split_once("|").unwrap();
+        let (_, cards) = line.split_once(':').unwrap();
+        let (left, right) = cards.split_once('|').unwrap();
 
         let parse_number = |s| match s {
             " " | "|" => None,
@@ -69,7 +69,7 @@ fn sub_solution_2() {
 
     for (i, card) in cards_tuple.iter().enumerate() {
         let (winner, hand) = card;
-        let winner_count = winner.intersection(&hand).count() as u8;
+        let winner_count = winner.intersection(hand).count() as u8;
         let n = card_count[i];
 
         card_count[(i + 1).min(cards_tuple.len())

@@ -92,5 +92,5 @@ fn get_value(nodes: Vec<Node>, key: i64) -> i64 {
         }
     }
 
-    return next_key;
+    next_key
 }

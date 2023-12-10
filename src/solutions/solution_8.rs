@@ -75,7 +75,7 @@ fn sub_solution_2() {
             let split = line[7..15].split_once(", ").unwrap();
             map.insert(key.to_string(), (split.0, split.1));
 
-            if key.ends_with("A") {
+            if key.ends_with('A') {
                 starting_steps.push(key.to_string());
             }
         }
@@ -87,7 +87,7 @@ fn sub_solution_2() {
     let mut instruction_index = 0;
     let instructions = instructions.chars().collect::<Vec<char>>();
 
-    let mut steps_vector = Vec::from(starting_steps.clone());
+    let mut steps_vector = starting_steps.clone();
 
     let mut end_mapping = HashMap::new();
 
@@ -140,7 +140,7 @@ fn sub_solution_2() {
         }
 
         steps_vector.clear();
-        steps_vector = Vec::from(iteration_steps.clone());
+        steps_vector = iteration_steps.clone();
         // steps_vector = Vec::from(*iteration_steps);
 
         steps += 1;
