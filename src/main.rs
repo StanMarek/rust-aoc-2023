@@ -23,6 +23,7 @@ fn main() {
         Ok(8) => solution_8::solve(),
         Ok(9) => solution_9::solve(),
         Ok(10) => solution_10::solve(),
+        Ok(11) => solution_11::solve(),
         _ => (),
     }
 }
