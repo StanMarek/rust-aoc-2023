@@ -8,7 +8,7 @@ use solutions::*;
 fn main() {
     let args: Vec<_> = env::args().collect();
     if args.len() < 2 {
-        panic!("Provide day number");
+        panic!("Provide day number: cargo run <day-number>");
     }
 
     let day_number = args.get(1).unwrap().parse::<u32>();
