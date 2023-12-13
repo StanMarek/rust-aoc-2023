@@ -54,19 +54,20 @@ fn handle(reproduce: u32) -> u64 {
     total
 }
 
-fn count(cfg: &str, nums: &[u64], cache: &mut HashMap<String, u64>) -> u64 {
-    if cfg.is_empty() {
-        return if nums.is_empty() { 1 } else { 0 };
+fn count(springs: &str, arrangements: &[u64], cache: &mut HashMap<String, u64>) -> u64 {
+    if springs.is_empty() {
+        return if arrangements.is_empty() { 1 } else { 0 };
     }
 
-    if nums.is_empty() {
-        return if cfg.contains('#') { 0 } else { 1 };
+    if arrangements.is_empty() {
+        return if springs.contains('#') { 0 } else { 1 };
     }
 
     let key = format!(
         "{}-{}",
-        cfg,
-        nums.iter()
+        springs,
+        arrangements
+            .iter()
             .map(|&num| num.to_string())
             .collect::<Vec<_>>()
             .join(".")
@@ -78,26 +79,28 @@ fn count(cfg: &str, nums: &[u64], cache: &mut HashMap<String, u64>) -> u64 {
 
     let mut result = 0;
 
-    if cfg.starts_with('.') || cfg.starts_with('?') {
-        result += count(&cfg[1..], nums, cache);
+    if springs.starts_with('.') || springs.starts_with('?') {
+        result += count(&springs[1..], arrangements, cache);
     }
 
-    if (cfg.starts_with('#') || cfg.starts_with('?'))
-        && nums[0] <= cfg.len() as u64
-        && !cfg[..nums[0] as usize].contains('.')
-        && (nums[0] == cfg.len() as u64 || cfg.chars().nth(nums[0] as usize).unwrap() != '#')
+    if (springs.starts_with('#') || springs.starts_with('?'))
+        && arrangements[0] <= springs.len() as u64
+        && !springs[..arrangements[0] as usize].contains('.')
+        && (arrangements[0] == springs.len() as u64
+            || springs.chars().nth(arrangements[0] as usize).unwrap() != '#')
     {
         result += count(
-            if nums[0] + 1 < cfg.len() as u64 {
-                &cfg[(nums[0] + 1) as usize..]
+            if arrangements[0] + 1 < springs.len() as u64 {
+                &springs[(arrangements[0] + 1) as usize..]
             } else {
                 ""
             },
-            &nums[1..],
+            &arrangements[1..],
             cache,
         );
     }
 
     cache.insert(key, result);
+
     result
 }

@@ -25,6 +25,7 @@ fn main() {
         Ok(10) => solution_10::solve(),
         Ok(11) => solution_11::solve(),
         Ok(12) => solution_12::solve(),
-        _ => (),
+        Ok(13) => solution_13::solve(),
+        _ => panic!("Day not implemented yet!"),
     }
 }
